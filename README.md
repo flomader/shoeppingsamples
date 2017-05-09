@@ -172,8 +172,6 @@ Connect-AzureAD -TenantId <tenantid>
 Get-AzureADServicePrincipal -SearchString <merchantportalserviceprincipal> 
 ```
 
-
-
 [architecture]: https://flmaderblob.blob.core.windows.net/accend/architecture.png
 
 [1]: https://docs.microsoft.com/en-us/azure/power-bi-embedded/power-bi-embedded-app-token-flow
