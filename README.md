@@ -16,7 +16,7 @@ The Token Webservice restricts access to only requests from the merchant portal,
 In order to allow only token requests from the merchant portal, a service principal must be registered for the merchant portal in the Azure Active Directory tenant.
 
 #### Merchant Portal requests Bearer Token from Azure AD ###
-The merchant portal uses a Client Id and a Client Secret (which have been generated for the service principal) in order to get a Bearer token from Azure Active Directory, which then can be passed to the Token Webservice along with the token request. The Bearer token gets sent as Authorization Header in the request against the Token Webservice.
+The merchant portal uses a Client Id and a Client Secret (which have been generated for the service principal) in order to get a Bearer token from Azure Active Directory, which then can be passed to the Token Webservice along with the token request. The merchant portal calls the Token Webservices' action to generate an embed token and sends the Bearer token as Authorization Header.
 
 This Java sample application shows how to get a Bearer token from Azure Active Directory: 
 
