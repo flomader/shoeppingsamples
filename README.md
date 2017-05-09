@@ -146,7 +146,7 @@ public class PublicClient {
 Before the Token Webservice requests an embed token from Power BI Embedded and returns this embed token together with an embed url to the merchant portal, it checks the caller's Bearer token.
 The embed token request is implemented as described [here][2].
 
-This method shows how the API App validates the Bearer token and checks if the token matches the merchant portal's service principal:
+This method shows how the Token Webservice (Api App) validates the Bearer token and checks if the token matches the merchant portal's service principal:
 
 ```CSharp
 private static void CheckCallerId()
