@@ -1,5 +1,14 @@
-# Solution, steps and delivery
-Shoepping.at Händlerportal (merchant portal) enables merchants to consume reports about past orders, shipments, returns, etc. via a web browser.
+# Title
+
+## Customer Profile
+Austrian Post is the biggest logistics provider in Austria with a yearly revenue of 2B EUR. In April 2017 Austrian Post has launched a new online shopping platform called Shoepping.at. Shoepping.at is a platform, where merchants can participate and sell goods, comparable to Amazon Marketplace.
+
+## Problem Statement
+
+Shöpping.at provides it’s merchants a web portal to manage trades. Post envisioned to provide their merchants a tool to visually explore data about orders, returns, shipments, etc. Because of severe time pressure Post looked for a solution that requires minimal custom development efforts. They also sought a solution which enables to quickly build, test and operate a dashboarding solution that seamlessly integrates into their existing merchant’s web portal.
+
+## Solution, steps and delivery
+Today, Shoepping.at Händlerportal (merchant portal) enables merchants to explore data about past orders, shipments, returns, etc. via a web browser.
 
 The merchant portal receives data from systems like SAP Hybris and Dynamics CRM. Data from source systems get extracted and loaded into a SQL Database by Azure Data Factory. Power BI reports access data from the SQL Database via direct query mode in order to achieve near real time reporting.
 The merchant portal itself is written in Java and web pages are generated mostly by server-side rendering.
@@ -8,14 +17,14 @@ In order to restrict merchant's access only to his/her data, Shöpping implement
 
 ![Shöpping Architecture][architecture]
 
-## Token Flow and Session State
+### Token Flow and Session State
 The merchant portal (Java application) holds a session state and information about the logged in user within that session. Thus embed tokens for the Power BI report need to be requested by the web application (merchant portal) from the Token Webservice. 
 The Token Webservice restricts access to only requests from the merchant portal, though. The Token Webservice is an API App written in C# and deployed to Azure.
 
-### Securing the Token Flow with Azure Active Directory 
+#### Securing the Token Flow with Azure Active Directory 
 In order to allow only token requests from the merchant portal, a service principal must be registered for the merchant portal in the Azure Active Directory tenant.
 
-#### Merchant Portal requests Bearer Token from Azure AD ###
+##### Merchant Portal requests Bearer Token from Azure AD ###
 The merchant portal uses a Client Id and a Client Secret (which have been generated for the service principal) in order to get a Bearer token from Azure Active Directory, which then can be passed to the Token Webservice along with the token request. The merchant portal calls the Token Webservices' action to generate an embed token and sends the Bearer token as Authorization Header.
 
 This Java sample application shows how to get a Bearer token from Azure Active Directory: 
@@ -142,7 +151,7 @@ public class PublicClient {
 	</build>
 </project>
 ```
-#### Token Webservices needs to validate Bearer token
+##### Token Webservices needs to validate Bearer token
 Before the Token Webservice requests an embed token from Power BI Embedded and returns this embed token together with an embed url to the merchant portal, it checks the caller's Bearer token.
 The embed token request is implemented as described [here][2].
 
@@ -171,6 +180,8 @@ Connect-AzureAD -TenantId <tenantid>
 
 Get-AzureADServicePrincipal -SearchString <merchantportalserviceprincipal> 
 ```
+
+## Conclusion
 
 [architecture]: https://flmaderblob.blob.core.windows.net/accend/architecture.png
 
